@@ -6,16 +6,26 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 export default function Home() {
   const [data, setData] = useState([]);
   const weatherServerUrl = process.env.NEXT_PUBLIC_WEATHER_SERVER_URL;
+  const weatherApiKey = process.env.NEXT_PUBLIC_GET_API_KEY;
 
   useEffect(() => {
     const fetchData = async () => {
       if (!weatherServerUrl) {
-        console.error('WEATHER_SERVER_URL is not defined');
+        console.error('NEXT_PUBLIC_WEATHER_SERVER_URL is not defined');
+        return;
+      }
+
+      if (!weatherApiKey) {
+        console.error('NEXT_PUBLIC_GET_API_KEY is not defined');
         return;
       }
 
       try {
-        const response = await fetch(weatherServerUrl);
+        const response = await fetch(weatherServerUrl, {
+          headers: {
+            'x-api-key': weatherApiKey
+          }
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -37,7 +47,7 @@ export default function Home() {
     const interval = setInterval(fetchData, 1000);
   
     return () => clearInterval(interval);
-  }, [weatherServerUrl]);
+  }, [weatherServerUrl, weatherApiKey]);
 
   return (
     <div style={{ minHeight: '100vh', padding: '20px' }}>
