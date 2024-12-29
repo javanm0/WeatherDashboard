@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <div style={{ minHeight: '100vh', padding: '20px' }}>
       <header style={{ padding: '20px', textAlign: 'center' }}>
-        <h1 style={{ fontWeight: 'bold', fontSize: '2em' }}>Javan's Weather Dashboard</h1>
+        <h1 style={{ fontWeight: 'bold', fontSize: '2em' }}>Javan&apos;s Weather Dashboard</h1>
       </header>
       <h2>Temperature (°F)</h2>
       <ResponsiveContainer width="100%" height={360}>
